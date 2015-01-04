@@ -5,7 +5,7 @@ Dead simple dependency container for node.js
 
 ## Context
 
-Independable was inspired by the [dependable](https://www.npmjs.com/package/dependable) module, however I didn't like the way of defining dependencies, as it uses Function.toString() to identify the dependencies.
+Independable was inspired by the [dependable](https://www.npmjs.com/package/dependable) module, however I didn't like the way of defining dependencies, as it uses ```Function.toString()``` to identify the dependencies.
 Things will go wrong when you try to minify such files, and it simply isn't a "clean" solution.
 
 ## Installation
@@ -93,7 +93,7 @@ container.define('three', function() {
 });
 ```
 are equivalent. As can be seen, ```this``` in the factory function refers to the dependency container itself.
-As such, you can also pass it functions depending on the container as
+As such, you can also pass it to functions depending on the container as
 ```javascript
 var needsTheContainer = function(container) {
   // Do something with the container
