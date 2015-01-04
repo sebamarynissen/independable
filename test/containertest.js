@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var builder = require('./../index');
+var builder = require('./..');
 
 describe('The container', function() {
 

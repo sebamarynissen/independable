@@ -1,10 +1,33 @@
 {
-    "name": "dependency-injection",
-    "version": "0.0.1",
-    "description": "Simple dependency container, written for own use.",
-    "main": "index.js",
-    "author": "Sebastiaan Marynissen <sebastiaan.marynissen@gmail.com>",
-    "dependencies": {
-        "underscore": "1.7.*"
-    }
+  "name": "independable",
+  "version": "0.0.1",
+  "description": "Dead simple dependency container for node.js",
+  "main": "independable.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sebamarynissen/independable"
+  },
+  "keywords": [
+    "dependency",
+    "injection",
+    "container"
+  ],
+  "author": "Sebastiaan Marynissen <sebastiaan.marynissen@ugent.be>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sebamarynissen/independable/issues"
+  },
+  "homepage": "https://github.com/sebamarynissen/independable",
+  "dependencies": {
+    "underscore": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0"
+  }
 }
