@@ -1,0 +1,10 @@
+{
+    "name": "dependency-injection",
+    "version": "0.0.1",
+    "description": "Simple dependency container, written for own use.",
+    "main": "index.js",
+    "author": "Sebastiaan Marynissen <sebastiaan.marynissen@gmail.com>",
+    "dependencies": {
+        "underscore": "1.7.*"
+    }
+}
