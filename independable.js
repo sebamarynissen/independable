@@ -1,13 +1,58 @@
-var _ = require('underscore');
+// Wrap in a global clusure, we need some more.
+!function() {
 
-module.exports = function() {
+var _ = {};
+_.isArray = Array.isArray || function(obj) {
+    Object.prototype.toString.call(obj) === '[object Array]';
+};
+_.isFunction = function(obj) {
+    return typeof obj === 'function';
+};
+_.isObject = function(obj) {
+    var type = typeof obj;
+    return type === 'function' || type === 'object' && !!obj;
+};
+_.each = function(obj, fn) {
+    if (_.isArray(obj)) {
+        for (var i = 0; i < obj.length; i++) {
+            fn.call(obj, obj[i], i);
+        }
+    }
+    else {
+        for (var i in obj) {
+            fn.call(obj, obj[i], i);
+        }
+    }
+};
+
+(function(factory, global) {
+    if (typeof define == "function" && define.amd) {
+        // AMD
+        define([], function() {
+            return factory;
+        });
+    }
+    else if ( typeof module === "object" && typeof module.exports === "object" ) {
+        // CommonJS
+        module.exports = factory;
+    }
+    else {
+        // Global
+        var old = global.independable;
+        global.independable = factory;
+        factory.noConflict = function() {
+            global.independable = old;
+            return factory;
+        };
+    }
+})(function() {
 
     // The object containing all the services.
     var services = {};
 
     // Some private functions
     var defineOne = function(name, def) {
-        if (_.isFunction(def)) {
+        if (typeof def === 'function') {
             def = (function(def) {
                 return {
                     'deps': [],
@@ -38,7 +83,7 @@ module.exports = function() {
 
         // Registers anything as a service.
         register: function(name, thing) {
-            if (_.isString(name)) {
+            if (typeof name === 'string') {
                 defineOne(name, function() {
                     return thing;
                 });      
@@ -58,7 +103,7 @@ module.exports = function() {
         // normally.
         define: function(name, def) {
             var container = this;
-            if (_.isString(name)) {
+            if (typeof name === 'string') {
                 if (!_.isFunction(def) && !_.isObject(def) && !_.isFunction(def.get)) {
                     throw new Error('Trying to define ' + def + ', which is invalid! A definition should be a function or an object hash containing a get function!');
                 }
@@ -91,4 +136,6 @@ module.exports = function() {
 
     };
 
-};
+}, this);
+
+}();

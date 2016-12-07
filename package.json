@@ -1,6 +1,6 @@
 {
   "name": "independable",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Dead simple dependency container for node.js",
   "main": "independable.js",
   "directories": {
@@ -18,15 +18,12 @@
     "injection",
     "container"
   ],
-  "author": "Sebastiaan Marynissen <sebastiaan.marynissen@ugent.be>",
+  "author": "Sebastiaan Marynissen <sebastiaan.marynissen@gmail.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/sebamarynissen/independable/issues"
   },
   "homepage": "https://github.com/sebamarynissen/independable",
-  "dependencies": {
-    "underscore": "^1.7.0"
-  },
   "devDependencies": {
     "chai": "^1.10.0"
   }
