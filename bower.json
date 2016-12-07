@@ -1,0 +1,28 @@
+{
+  "name": "independable",
+  "main": "independable.js",
+  "version": "1.0.0",
+  "homepage": "https://github.com/sebamarynissen/independable",
+  "authors": [
+    "Sebastiaan Marynissen <sebastiaan.marynissen@gmail.com>"
+  ],
+  "description": "Dead simple dependency container for node.js and the browser",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "dependency",
+    "injection",
+    "container"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
