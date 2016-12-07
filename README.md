@@ -1,7 +1,7 @@
 Independable
 ============
 
-Dead simple dependency container for node.js
+Dead simple dependency container for node.js and the browser.
 
 ## Context
 
@@ -13,14 +13,29 @@ Things will go wrong when you try to minify such files, and it simply isn't a "c
 ```
 npm install independable
 ```
+or
+```
+bower install independable
+```
 
 ## Usage
 
 You can retreive the container as
 ```javascript
+// Node & commonjs
 var independable = require('independable');
 var container = independable();
+
+// AMD
+define(['independable'], function(independable) {
+    var container = independable();
+});
+
+// Global
+var independable = window.independable;
+var container = independable();
 ```
+depending on your environment.
 Subsequently there are two ways to specify your dependencies. You could either _register_ them, or _define_ them.
 
 ### Registering dependencies
@@ -111,7 +126,7 @@ var dep = container.get('dependency-id');
 
 ## License
 
-Copyright (c) 2015 Sebastiaan Marynissen
+Copyright (c) 2016 Sebastiaan Marynissen
 
 Permission is hereby granted, free of charge, to any person
 obtaining a copy of this software and associated documentation
