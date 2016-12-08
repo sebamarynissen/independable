@@ -91,7 +91,7 @@ If a certain dependency depends on another dependency, there are two ways to han
 container.register('one', 1);
 container.register('two', 2);
 container.define('three', {
-  deps: [one, two],
+  deps: ['one', 'two'],
   get: function(one, two) {
     return one + two;
   }
