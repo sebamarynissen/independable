@@ -124,6 +124,12 @@ container.define('dependent', function() {
 var dep = container.get('dependency-id');
 ```
 
+### Deleting existing dependencies
+Deleting dependencies can be useful to clear up some memory:
+```javascript
+container.delete('dependency-id');
+```
+
 ## License
 
 Copyright (c) 2016 Sebastiaan Marynissen
