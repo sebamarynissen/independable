@@ -132,6 +132,11 @@ _.each = function(obj, fn) {
                 services[name].ref = def.get.apply(container, deps);
             }
             return services[name].ref;
+        },
+
+        // Deletes a service definition. Can be useful to free up some memory.
+        delete: function(name) {
+            delete services[ name ];
         }
 
     };

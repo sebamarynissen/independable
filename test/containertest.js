@@ -80,4 +80,27 @@ describe('The container', function() {
         expect(container.get('use-random')).to.equal('okay');
     });
 
+    it('should delete services again', function() {
+
+        container.register('a', 'hello');
+        container.define('b', function() {
+            return 'world';
+        });
+
+        expect(container.get('a')).to.equal('hello');
+        expect(container.get('b')).to.equal('world');
+
+        container.delete('a');
+        expect(function() {
+            container.get('a');
+        }).to.throw(Error);
+        expect(container.get('b')).to.equal('world');
+
+        container.delete('b');
+        expect(function() {
+            container.get('b');
+        }).to.throw(Error);
+
+    });
+
 });
