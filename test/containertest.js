@@ -4,7 +4,7 @@ var builder = require('./..');
 describe('The container', function() {
 
     var container = builder();
-    it('should raise errors when an undefined services is requested', function() {
+    it('should raise errors when an undefined service is requested', function() {
         expect(function() {
             container.get();
         }).to.throw(Error);
@@ -32,6 +32,24 @@ describe('The container', function() {
         expect(container.get('some')).to.equal('very simple');
         expect(container.get('service')).to.equal('strings');
 
+    });
+
+    it('makes dependencies directly accessible', function() {
+        container.register('string', 'a string');
+        container.define('hello', function() {
+            return 'world';
+        });
+        expect(container.string).to.equal('a string');
+        expect(container.hello).to.equal('world');
+    });
+
+    it('doesn\'t override the register, define, get and delte methods', function() {
+        for (let name of ['register', 'define', 'get', 'delete']) {
+            container.register(name, 1);
+            expect(container[name]).to.be.a('function');
+            container.delete(name);
+            expect(container[name]).to.be.a('function');
+        }
     });
 
     it('should define services correctly', function() {

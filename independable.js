@@ -25,6 +25,10 @@ _.each = function(obj, fn) {
     }
 };
 
+function has(obj, prop) {
+    return Object.hasOwnProperty.call(obj, prop);
+}
+
 (function(factory, global) {
     if (typeof define == "function" && define.amd) {
         // AMD
@@ -48,10 +52,10 @@ _.each = function(obj, fn) {
 })(function() {
 
     // The object containing all the services.
-    var services = {};
+    var services = Object.create(null);
 
     // Some private functions
-    var defineOne = function(name, def) {
+    var defineOne = function(ctx, name, def) {
         if (typeof def === 'function') {
             def = (function(def) {
                 return {
@@ -69,6 +73,17 @@ _.each = function(obj, fn) {
             'name': name,
             'def': def
         };
+
+        // Make the dependency directly accessible on the container as well.
+        if (!has(ctx, name)) {
+            Object.defineProperty(ctx, name, {
+                get() {
+                    return this.get(name);
+                },
+                configurable: true,
+            });
+        }
+
     };
 
     // Helper function which wraps simple service registrations as a definition
@@ -83,14 +98,15 @@ _.each = function(obj, fn) {
 
         // Registers anything as a service.
         register: function(name, thing) {
+            var ctx = this;
             if (typeof name === 'string') {
-                defineOne(name, function() {
+                defineOne(ctx, name, function() {
                     return thing;
                 });      
             }
             else {
                 _.each(name, function(thing, name) {
-                    defineOne(name, function() {
+                    defineOne(ctx, name, function() {
                         return thing;
                     });
                 });
@@ -107,7 +123,7 @@ _.each = function(obj, fn) {
                 if (!_.isFunction(def) && !_.isObject(def) && !_.isFunction(def.get)) {
                     throw new Error('Trying to define ' + def + ', which is invalid! A definition should be a function or an object hash containing a get function!');
                 }
-                defineOne(name, def);
+                defineOne(container, name, def);
             }
             else {
                 _.each(name, function(def, name) {
@@ -120,10 +136,10 @@ _.each = function(obj, fn) {
         // Gets a service, but throws an error when it was not defined yet.
         get: function(name) {
             var container = this;
-            if (!services.hasOwnProperty(name)) {
+            if (!has(services, name)) {
                 throw new Error('Service ' + name + ' was not found!');
             }
-            if (!services[name].hasOwnProperty('ref')) {
+            if (!has(services[name], 'ref')) {
                 var def = services[name].def,
                     deps = [];
                 _.each(def.deps, function(dep) {
@@ -137,6 +153,9 @@ _.each = function(obj, fn) {
         // Deletes a service definition. Can be useful to free up some memory.
         delete: function(name) {
             delete services[ name ];
+            if (['register', 'define', 'get', 'delete'].indexOf(name) === -1) {
+                delete this[name];
+            }
         }
 
     };
