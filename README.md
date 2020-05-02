@@ -124,6 +124,12 @@ container.define('dependent', function() {
 var dep = container.get('dependency-id');
 ```
 
+Since version `1.1.0` you can also directly access the dependencies which makes them suitable for object destructuring as well
+```javascript
+var dep = container['dependency-id'];
+var { dep } = container;
+```
+
 ### Deleting existing dependencies
 Deleting dependencies can be useful to clear up some memory:
 ```javascript
